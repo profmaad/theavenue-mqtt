@@ -100,7 +100,7 @@ class LightsMQTTHandler
       if room and id
         brightness = case message.payload
                      when 'on'
-                       @last_value[message.topic]
+                       if @last_value[message.topic] == 0 then 50 else @last_value[message.topic] end
                      when 'off'
                        0
                      else
