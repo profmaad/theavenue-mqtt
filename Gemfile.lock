@@ -1,0 +1,20 @@
+GIT
+  remote: https://github.com/njh/ruby-em-mqtt.git
+  revision: 747cdbc4ec381ea89131873329851f822f4656d6
+  specs:
+    em-mqtt (0.0.4)
+      eventmachine
+      mqtt (>= 0.3.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    eventmachine (1.0.9.1)
+    mqtt (0.3.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  em-mqtt!
+  eventmachine
