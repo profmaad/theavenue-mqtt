@@ -95,8 +95,10 @@ class LightsMQTTHandler
       puts "Received MQTT message: #{message.inspect} (#{message.payload.to_i})"
       room, id = @topics[message.topic]
 
-      if room and id
-        @commands.push(LightState.new(room, id, message.payload.to_i).to_binary_s)
+      if room and id and not (message.payload == 'on')
+        payload = if message.payload == 'off' then 0 else message.payload.to_i end
+
+        @commands.push(LightState.new(room, id, message.payload.to_i).to_binary_s) unless payload.nil?
       else
         puts "Received MQTT message for unexpected topic: #{message.inspect}"
       end
