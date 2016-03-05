@@ -91,14 +91,25 @@ class LightsMQTTHandler
       ids.reject{|key, _| key == 'name'}.map{|id, name| [topic(room_name, name, "brightness/set"), [room_id, id]]}
     end.to_h
 
+    @last_value = @topics.map {|_| 0}
+
     @connection.receive_callback do |message|
       puts "Received MQTT message: #{message.inspect} (#{message.payload.to_i})"
       room, id = @topics[message.topic]
 
-      if room and id and not (message.payload == 'on')
-        payload = if message.payload == 'off' then 0 else message.payload.to_i end
+      if room and id
+        brightness = case payload
+                     when 'on'
+                       @last_value[message.topic]
+                     when 'off'
+                       0
+                     else
+                       payload.message.to_i
+                     end
 
-        @commands.push(LightState.new(room, id, message.payload.to_i).to_binary_s) unless payload.nil?
+        @last_value[message.topic] = brightness unless (brightness.nil? or brightness == 0)
+
+        @commands.push(LightState.new(room, id, brightness).to_binary_s) unless brightness.nil?
       else
         puts "Received MQTT message for unexpected topic: #{message.inspect}"
       end
