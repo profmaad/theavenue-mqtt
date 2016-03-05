@@ -91,7 +91,7 @@ class LightsMQTTHandler
       ids.reject{|key, _| key == 'name'}.map{|id, name| [topic(room_name, name, "brightness/set"), [room_id, id]]}
     end.to_h
 
-    @last_value = @topics.map {|_| 0}
+    @last_value = @topics.map {|key,_| [key,0]}.to_h
 
     @connection.receive_callback do |message|
       puts "Received MQTT message: #{message.inspect} (#{message.payload.to_i})"
