@@ -160,7 +160,9 @@ class TheAvenueConnection < EventMachine::Connection
   end
 
   def unbind
+    @status_timer.cancel
     puts 'Connection to The Avenue terminated'
+    EventMachine.stop
   end
 
   def fill_buffer(data)
@@ -220,14 +222,4 @@ class TheAvenueConnection < EventMachine::Connection
     $stderr.puts "sending data: #{to_hex(data)}"
     super(data)
   end
-end
-
-EventMachine.run do
-  config = YAML.load_file(ARGV.shift)
-
-  commands = EventMachine::Queue.new
-
-  lights_mqtt_handler = LightsMQTTHandler.new(config, commands)
-
-  EventMachine.connect(config.dig('theavenue', 'host') || 'localhost', config.dig('theavenue', 'port') || 8080, TheAvenueConnection, config, lights_mqtt_handler, commands)
 end
