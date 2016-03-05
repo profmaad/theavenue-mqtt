@@ -137,7 +137,7 @@ class LightsMQTTHandler
     room = room_config['name'] || state.room.to_s
     id = room_config[state.id] || state.id.to_s
 
-    light_state = if state.brightness == 0 then :off else :on end
+    light_state = if state.brightness == 0 then 'off' else 'on' end
 
     @connection.publish(topic(room, id, "brightness"), state.brightness, @retain)
     @connection.publish(topic(room, id, "state"), light_state, @retain)
