@@ -1,0 +1,24 @@
+mqtt:
+  broker: localhost
+  prefix: my_prefix
+  retain: true
+
+theavenue:
+  host: localhost
+  port: 8080
+
+lights:
+  0x01:
+    name: bedroom
+    0x01: left
+    0x02: right
+  0x02:
+    name: living_room
+    0x01: entrance
+    0x02: couch
+
+aircon:
+  0x11:
+    name: bedroom
+  0x12:
+    name: living_room
