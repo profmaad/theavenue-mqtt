@@ -98,7 +98,7 @@ class LightsMQTTHandler
       room, id = @topics[message.topic]
 
       if room and id
-        brightness = case payload
+        brightness = case message.payload
                      when 'on'
                        @last_value[message.topic]
                      when 'off'
