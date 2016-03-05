@@ -104,7 +104,7 @@ class LightsMQTTHandler
                      when 'off'
                        0
                      else
-                       payload.message.to_i
+                       message.payload.to_i
                      end
 
         @last_value[message.topic] = brightness unless (brightness.nil? or brightness == 0)
