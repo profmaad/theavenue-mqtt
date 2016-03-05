@@ -157,7 +157,7 @@ class TheAvenueConnection < EventMachine::Connection
 
   def post_init
     @buffer = ''
-    @status_timer = EventMachine::PeriodicTimer.new(2) do
+    @status_timer = EventMachine::PeriodicTimer.new(5) do
       [0x3d, 0x5b, 0x5c, 0x5d].each do |room|
         send_data(LightState.new(room).to_binary_s)
       end
