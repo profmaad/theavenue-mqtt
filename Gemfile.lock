@@ -9,6 +9,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    bindata (2.2.0)
     eventmachine (1.0.9.1)
     mqtt (0.3.1)
 
@@ -16,5 +17,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bindata
   em-mqtt!
   eventmachine
+
+BUNDLED WITH
+   1.11.2
