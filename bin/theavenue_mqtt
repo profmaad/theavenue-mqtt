@@ -13,6 +13,7 @@ EventMachine.run do
   commands = EventMachine::Queue.new
 
   lights_mqtt_handler = LightsMQTTHandler.new(config, commands)
+  aircon_mqtt_handler = AirconMQTTHandler.new(config, commands)
 
-  EventMachine.connect(config.dig('theavenue', 'host') || 'localhost', config.dig('theavenue', 'port') || 8080, TheAvenueConnection, config, lights_mqtt_handler, commands)
+  EventMachine.connect(config.dig('theavenue', 'host') || 'localhost', config.dig('theavenue', 'port') || 8080, TheAvenueConnection, config, lights_mqtt_handler, aircon_mqtt_handler, commands)
 end
